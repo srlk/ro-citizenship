@@ -1,12 +1,29 @@
 let data = [];
-let currentIndex = 0;
+let currentIndex = parseInt(localStorage.getItem('currentIndex')) || 0;
+
+function convertMarkdownToHtml(text) {
+  return text
+    // Convert bold (**text**)
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    // Convert italics (*text*)
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    // Convert bullet points
+    .replace(/^\s*[-*+]\s+(.*)$/gm, '<li>$1</li>')
+    // Convert numbered lists
+    .replace(/^\s*\d+\.\s+(.*)$/gm, '<li>$1</li>')
+    // Convert headers
+    .replace(/^#{1,6}\s+(.*)$/gm, function(match, text) {
+      const level = match.trim().indexOf(' ');
+      return `<h${level}>${text}</h${level}>`;
+    });
+}
 
 function renderQuestion(index) {
   const item = data[index];
-  $("#question_ro").text(item.question_ro);
-  $("#question_en").text(item.question_en);
-  $("#answer_ro").text(item.answer_ro);
-  $("#answer_en").text(item.answer_en);
+  $("#question_ro").html(convertMarkdownToHtml(item.question_ro));
+  $("#question_en").html(convertMarkdownToHtml(item.question_en));
+  $("#answer_ro").html(convertMarkdownToHtml(item.answer_ro));
+  $("#answer_en").html(convertMarkdownToHtml(item.answer_en));
 
   const imageContainer = $("#image_container");
   imageContainer.empty();
@@ -20,11 +37,13 @@ function renderQuestion(index) {
 
 function showPrevious() {
   currentIndex = (currentIndex - 1 + data.length) % data.length;
+  localStorage.setItem('currentIndex', currentIndex);
   renderQuestion(currentIndex);
 }
 
 function showNext() {
   currentIndex = (currentIndex + 1) % data.length;
+  localStorage.setItem('currentIndex', currentIndex);
   renderQuestion(currentIndex);
 }
 
@@ -34,6 +53,7 @@ function showRandom() {
     randIndex = Math.floor(Math.random() * data.length);
   } while (randIndex === currentIndex);
   currentIndex = randIndex;
+  localStorage.setItem('currentIndex', currentIndex);
   renderQuestion(currentIndex);
 }
 

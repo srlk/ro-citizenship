@@ -2,34 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Romanian Citizenship</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="script.js" defer></script>
 </head>
 <body>
+  <div class="container">
+    <div class="row">
+      <div class="twelve columns">
+        <div class="images u-max-full-width" id="image_container"></div>
+      </div>
+    </div>
 
-  <div class="images" id="image_container"></div>
+    <div class="row">
+      <div class="twelve columns">
+        <div class="question-block">
+          <h2>Întrebare (RO):</h2>
+          <p id="question_ro"></p>
 
-  <div class="question-block">
-    <h2>Întrebare (RO):</h2>
-    <p id="question_ro"></p>
+          <h2>Question (EN):</h2>
+          <p id="question_en"></p>
 
-    <h2>Question (EN):</h2>
-    <p id="question_en"></p>
+          <h3>Răspuns (RO):</h3>
+          <p id="answer_ro"></p>
 
-    <h3>Răspuns (RO):</h3>
-    <p id="answer_ro"></p>
+          <h3>Answer (EN):</h3>
+          <p id="answer_en"></p>
+        </div>
+      </div>
+    </div>
 
-    <h3>Answer (EN):</h3>
-    <p id="answer_en"></p>
+    <div class="row">
+      <div class="twelve columns">
+        <div class="buttons">
+          <button class="button-primary one-third column" id="prevBtn">Previous</button>
+          <button class="button-primary one-third column" id="randomBtn">Random</button>
+          <button class="button-primary one-third column" id="nextBtn">Next</button>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="buttons">
-    <button id="prevBtn">Previous</button>
-    <button id="randomBtn">Random</button>
-    <button id="nextBtn">Next</button>
-  </div>
-
 </body>
 </html>
